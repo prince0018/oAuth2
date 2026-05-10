@@ -2,6 +2,7 @@ import os
 from dataclasses import dataclass
 from functools import lru_cache
 from typing import Optional
+from urllib.parse import urlparse
 
 from dotenv import load_dotenv
 
@@ -42,6 +43,17 @@ def _require_min_length(name: str, value: str, minimum: int = 32) -> str:
     return value
 
 
+def _optional_url(name: str) -> Optional[str]:
+    value = _env(name)
+    if not value:
+        return None
+
+    parsed = urlparse(value)
+    if parsed.scheme not in {"http", "https"} or not parsed.netloc:
+        raise ConfigError(f"{name} must be a valid http or https URL")
+    return value
+
+
 @dataclass(frozen=True)
 class Settings:
     google_client_id: str
@@ -56,6 +68,7 @@ class Settings:
     cors_origins: tuple[str, ...]
     session_cookie_secure: bool
     session_cookie_samesite: str
+    frontend_success_url: Optional[str]
 
 
 @lru_cache
@@ -88,4 +101,5 @@ def get_settings() -> Settings:
         cors_origins=_csv_env("CORS_ORIGINS"),
         session_cookie_secure=_bool_env("SESSION_COOKIE_SECURE", False),
         session_cookie_samesite=session_cookie_samesite,
+        frontend_success_url=_optional_url("FRONTEND_SUCCESS_URL"),
     )

@@ -24,3 +24,11 @@ def test_get_settings_parses_cors_origins(monkeypatch):
     get_settings.cache_clear()
 
     assert get_settings().cors_origins == ("http://localhost:3000", "https://example.com")
+
+
+def test_get_settings_rejects_invalid_frontend_success_url(monkeypatch):
+    monkeypatch.setenv("FRONTEND_SUCCESS_URL", "localhost:3000")
+    get_settings.cache_clear()
+
+    with pytest.raises(ConfigError, match="FRONTEND_SUCCESS_URL"):
+        get_settings()

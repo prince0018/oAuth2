@@ -1,8 +1,10 @@
 from fastapi import APIRouter, HTTPException, Depends, status
 from fastapi.security import OAuth2PasswordBearer
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 from starlette.requests import Request
 from authlib.integrations.starlette_client import OAuth
+from urllib.parse import urlencode, urlsplit, urlunsplit
+
 from src.auth.jwt_handler import create_token, decode_token
 from src.config import get_settings
 from src.db.users import get_or_create_user, get_user_by_id
@@ -49,6 +51,20 @@ def _extract_google_profile(user_info: dict) -> tuple[str, str, str]:
     return email, username, google_id
 
 
+def _frontend_success_redirect(access_token: str, user_id: int) -> RedirectResponse | None:
+    if not settings.frontend_success_url:
+        return None
+
+    parts = urlsplit(settings.frontend_success_url)
+    fragment = urlencode({
+        "access_token": access_token,
+        "token_type": "bearer",
+        "user_id": user_id,
+    })
+    redirect_url = urlunsplit((parts.scheme, parts.netloc, parts.path, parts.query, fragment))
+    return RedirectResponse(redirect_url)
+
+
 @router.get("/auth/login/google")
 async def login_google(request: Request):
     """
@@ -85,8 +101,10 @@ async def auth_callback_google(request: Request):
     # Create JWT token
     access_token = create_token(user_id)
 
-    # Return token to frontend (or redirect with token)
-    # For now, return JSON response
+    frontend_redirect = _frontend_success_redirect(access_token, user_id)
+    if frontend_redirect:
+        return frontend_redirect
+
     return JSONResponse({
         "access_token": access_token,
         "token_type": "bearer",

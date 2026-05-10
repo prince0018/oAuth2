@@ -1,0 +1,390 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f8fb;
+  --surface: #ffffff;
+  --surface-strong: #eef4f7;
+  --text: #172026;
+  --muted: #60717c;
+  --line: #d8e2e8;
+  --blue: #1769aa;
+  --green: #15803d;
+  --amber: #a15c07;
+  --red: #b42318;
+  --shadow: 0 20px 60px rgba(23, 32, 38, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    linear-gradient(135deg, rgba(23, 105, 170, 0.08), transparent 38%),
+    linear-gradient(315deg, rgba(21, 128, 61, 0.08), transparent 40%),
+    var(--bg);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-shell {
+  width: min(1120px, calc(100% - 32px));
+  min-height: calc(100vh - 32px);
+  margin: 16px auto;
+  display: grid;
+  grid-template-columns: minmax(320px, 0.92fr) minmax(320px, 1fr);
+  align-items: stretch;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.auth-panel,
+.visual-panel {
+  min-width: 0;
+  padding: clamp(24px, 4vw, 52px);
+}
+
+.auth-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+}
+
+.visual-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+  background: #eaf2f3;
+  border-left: 1px solid var(--line);
+}
+
+.brand-row,
+.profile-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.brand-mark,
+.avatar {
+  width: 52px;
+  height: 52px;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  font-weight: 800;
+}
+
+.brand-mark {
+  color: #ffffff;
+  background: var(--blue);
+}
+
+.avatar {
+  color: var(--green);
+  background: #e7f6ed;
+  border: 1px solid #bde7cc;
+}
+
+.eyebrow {
+  margin: 0 0 4px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  max-width: 10ch;
+  font-size: clamp(2.2rem, 6vw, 4.7rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+h2 {
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.lead {
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.status-bar {
+  width: fit-content;
+  max-width: 100%;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  color: var(--muted);
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font-size: 0.92rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--amber);
+}
+
+.status-bar.is-online .status-dot {
+  background: var(--green);
+}
+
+.status-bar.is-offline .status-dot {
+  background: var(--red);
+}
+
+.login-view,
+.profile-view,
+.settings-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.google-button,
+.secondary-button,
+.danger-button,
+.icon-button {
+  min-height: 44px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+}
+
+.google-button {
+  width: min(100%, 340px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 18px;
+  color: #ffffff;
+  background: #202124;
+  font-weight: 700;
+}
+
+.google-button:hover,
+.secondary-button:hover,
+.danger-button:hover,
+.icon-button:hover {
+  transform: translateY(-1px);
+}
+
+.google-icon {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #202124;
+  background: #ffffff;
+  font-weight: 800;
+}
+
+.profile-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.profile-list div {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfdfe;
+}
+
+dt {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+}
+
+.actions,
+.input-row {
+  display: flex;
+  gap: 10px;
+}
+
+.secondary-button,
+.danger-button,
+.icon-button {
+  padding: 0 14px;
+  font-weight: 700;
+  background: #ffffff;
+}
+
+.secondary-button {
+  color: var(--blue);
+  border-color: #b7d7ee;
+}
+
+.danger-button {
+  color: var(--red);
+  border-color: #fac5c1;
+}
+
+.icon-button {
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.settings-panel label {
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.input-row input {
+  width: 100%;
+  min-width: 0;
+  min-height: 44px;
+  padding: 0 12px;
+  color: var(--text);
+  background: #ffffff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.input-row input:focus {
+  outline: 3px solid rgba(23, 105, 170, 0.18);
+  border-color: var(--blue);
+}
+
+.flow-art {
+  width: min(100%, 520px);
+  align-self: center;
+}
+
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.flow-step {
+  min-height: 86px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 12px 8px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(216, 226, 232, 0.85);
+  border-radius: 8px;
+}
+
+.flow-step span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--line);
+}
+
+.flow-step p {
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.flow-step.is-active {
+  color: var(--text);
+  border-color: #9bc8e8;
+  background: #ffffff;
+}
+
+.flow-step.is-active span {
+  background: var(--blue);
+}
+
+.flow-step.is-complete {
+  color: var(--green);
+  border-color: #a9dfbd;
+  background: #f2fbf5;
+}
+
+.flow-step.is-complete span {
+  background: var(--green);
+}
+
+.is-hidden {
+  display: none;
+}
+
+@media (max-width: 820px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .visual-panel {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+
+  h1 {
+    max-width: 12ch;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+
+  .actions,
+  .input-row {
+    flex-direction: column;
+  }
+
+  .flow-steps {
+    grid-template-columns: 1fr;
+  }
+}

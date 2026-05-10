@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OAuth Login</title>
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="auth-panel" aria-labelledby="app-title">
+        <div class="brand-row">
+          <div class="brand-mark" aria-hidden="true">O</div>
+          <div>
+            <p class="eyebrow">OAuth Login</p>
+            <h1 id="app-title">Google account access</h1>
+          </div>
+        </div>
+
+        <div class="status-bar" id="status-bar">
+          <span class="status-dot" id="status-dot" aria-hidden="true"></span>
+          <span id="status-text">Checking backend</span>
+        </div>
+
+        <section class="login-view" id="login-view" aria-label="Login">
+          <p class="lead">Use your Google account to create or open your local app account.</p>
+          <button class="google-button" id="login-button" type="button">
+            <span class="google-icon" aria-hidden="true">G</span>
+            <span>Continue with Google</span>
+          </button>
+        </section>
+
+        <section class="profile-view is-hidden" id="profile-view" aria-label="Profile">
+          <div class="profile-heading">
+            <div class="avatar" id="avatar" aria-hidden="true">U</div>
+            <div>
+              <p class="eyebrow">Signed in</p>
+              <h2 id="username">User</h2>
+            </div>
+          </div>
+
+          <dl class="profile-list">
+            <div>
+              <dt>Email</dt>
+              <dd id="email">-</dd>
+            </div>
+            <div>
+              <dt>Token</dt>
+              <dd id="token-state">Active</dd>
+            </div>
+          </dl>
+
+          <div class="actions">
+            <button class="secondary-button" id="refresh-button" type="button">Refresh</button>
+            <button class="danger-button" id="logout-button" type="button">Logout</button>
+          </div>
+        </section>
+
+        <section class="settings-panel" aria-label="API settings">
+          <label for="api-base">API URL</label>
+          <div class="input-row">
+            <input id="api-base" name="api-base" type="url" spellcheck="false">
+            <button class="icon-button" id="save-api-button" type="button" aria-label="Save API URL">OK</button>
+          </div>
+        </section>
+      </section>
+
+      <aside class="visual-panel" aria-label="Login status">
+        <img src="./assets/auth-flow.svg" alt="" class="flow-art">
+        <div class="flow-steps">
+          <div class="flow-step is-active">
+            <span></span>
+            <p>Google</p>
+          </div>
+          <div class="flow-step" id="token-step">
+            <span></span>
+            <p>Token</p>
+          </div>
+          <div class="flow-step" id="profile-step">
+            <span></span>
+            <p>Profile</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

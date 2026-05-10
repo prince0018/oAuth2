@@ -8,6 +8,14 @@ Setup:
 4. Run the API:
    uvicorn src.main:app --reload
 
+Optional frontend:
+1. Set CORS_ORIGINS=http://localhost:3000 in .env.
+2. Set FRONTEND_SUCCESS_URL=http://localhost:3000/ in .env.
+3. Run:
+   cd frontend
+   python3 -m http.server 3000
+4. Open http://localhost:3000.
+
 Google OAuth redirect URI:
 http://localhost:8000/auth/callback/google
 
