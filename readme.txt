@@ -210,31 +210,6 @@ The important value is google_id. It comes from Google's sub field and is stable
 The app uses google_id first because it is safer than trusting email alone.
 
 
-Environment Variables
-=====================
-
-Copy .env.example to .env and fill the values:
-
-GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=your-google-client-secret
-
-SECRET_KEY=replace-with-at-least-32-random-characters
-SESSION_SECRET_KEY=replace-with-at-least-32-random-characters
-
-DB_NAME=oauth_login
-DB_USER=postgres
-DB_PASSWORD=
-DB_HOST=localhost
-DB_PORT=5432
-
-CORS_ORIGINS=http://localhost:3000
-FRONTEND_SUCCESS_URL=http://localhost:3000/
-SESSION_COOKIE_SECURE=false
-SESSION_COOKIE_SAMESITE=lax
-
-DB_PASSWORD can stay empty if your local PostgreSQL user does not require a password.
-
-
 Google OAuth Setup
 ==================
 
