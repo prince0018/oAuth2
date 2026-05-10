@@ -1,0 +1,1 @@
+there wont be the requirement of the password for the database, the things i can get from the gmail oauth2 is sufficient, need to check how to maintain the login
