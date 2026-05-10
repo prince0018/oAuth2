@@ -1,33 +1,28 @@
 import jwt
-import os
-from datetime import datetime, timedelta
-from dotenv import load_dotenv
+from datetime import datetime, timedelta, timezone
+from typing import Any, Optional
 
-load_dotenv()
+from src.config import get_settings
 
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24
 
 
-def create_token(user_id: int):
+def create_token(user_id: int) -> str:
     """Create JWT access token for user."""
+    now = datetime.now(timezone.utc)
     payload = {
+        "sub": str(user_id),
         "user_id": user_id,
-        "exp": datetime.utcnow() + timedelta(hours=ACCESS_TOKEN_EXPIRE_HOURS),
-        "iat": datetime.utcnow()
+        "exp": now + timedelta(hours=ACCESS_TOKEN_EXPIRE_HOURS),
+        "iat": now,
     }
-    return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+    return jwt.encode(payload, get_settings().secret_key, algorithm=ALGORITHM)
 
 
-def decode_token(token: str):
+def decode_token(token: str) -> Optional[dict[str, Any]]:
     """Decode and validate JWT token. Returns payload or None if invalid."""
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        return payload
-    except jwt.ExpiredSignatureError:
-        print("❌ Token expired")
-        return None
-    except jwt.InvalidTokenError:
-        print("❌ Invalid token")
+        return jwt.decode(token, get_settings().secret_key, algorithms=[ALGORITHM])
+    except jwt.PyJWTError:
         return None
